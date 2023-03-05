@@ -11,10 +11,7 @@ def process_posts(f_in, f_train_out, f_test_out, target_tag, split):
         try:
             f_out = f_train_out if random.random() > split else f_test_out
 
-            print(line)  
             attr = ET.fromstring(line).attrib
-            print(line)
-            print(attr)
 
             pid = attr.get('Id',"")
             label = 1 if target_tag in attr.get('Tags','') else 0
@@ -22,7 +19,6 @@ def process_posts(f_in, f_train_out, f_test_out, target_tag, split):
             body = re.sub(r'\s+',' ',attr.get('Body','')).strip()
             text = f"{title} {body}"
 
-            print(f_out)  
             f_out.write(f"{pid}\t{label}\t{text}\n")
             line_num +=1
         
